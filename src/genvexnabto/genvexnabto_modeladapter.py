@@ -8,23 +8,18 @@ from .models import ( GenvexNabtoBaseModel, GenvexNabtoOptima314, GenvexNabtoOpt
 _LOGGER = logging.getLogger(__name__)
 
 class GenvexNabtoModelAdapter:
-    _loadedModel: GenvexNabtoBaseModel = None
-
-    _currentDatapointList: Dict[int, List[GenvexNabtoDatapointKey]] = {}
-    _currentSetpointList: Dict[int, List[GenvexNabtoSetpointKey]] = {}
-
-    _values = {}
-    _update_handlers: Dict[GenvexNabtoDatapointKey|GenvexNabtoSetpointKey, List[Callable[[int, int], None]]] = {}
 
     def __init__(self, model, deviceNumber, slaveDeviceNumber, slaveDeviceModel):
         modelToLoad = GenvexNabtoModelAdapter.translateToModel(model, deviceNumber, slaveDeviceNumber, slaveDeviceModel)
         if modelToLoad == None:
             raise "Invalid model"
-        self._loadedModel = modelToLoad()
+        self._loadedModel: GenvexNabtoBaseModel = modelToLoad()
         self._loadedModel.addDeviceQuirks(deviceNumber, slaveDeviceNumber, slaveDeviceModel)
             
-        self._currentDatapointList = {100: self._loadedModel.getDefaultDatapointRequest()}
-        self._currentSetpointList = {200: self._loadedModel.getDefaultSetpointRequest()}
+        self._currentDatapointList: Dict[int, List[GenvexNabtoSetpointKey]] = {100: self._loadedModel.getDefaultDatapointRequest()}
+        self._currentSetpointList: Dict[int, List[GenvexNabtoSetpointKey]] = {200: self._loadedModel.getDefaultSetpointRequest()}
+        self._values = {}
+        self._update_handlers: Dict[GenvexNabtoDatapointKey|GenvexNabtoSetpointKey, List[Callable[[int, int], None]]] = {}
 
     def getModelName(self):
         return self._loadedModel.getModelName()
