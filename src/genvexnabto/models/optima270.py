@@ -18,7 +18,8 @@ class GenvexNabtoOptima270(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.PREHEAT_PWM: GenvexNabtoDatapoint(obj=0, address=41, divider=100, offset=0),
             GenvexNabtoDatapointKey.REHEAT_PWM: GenvexNabtoDatapoint(obj=0, address=42, divider=100, offset=0),
             GenvexNabtoDatapointKey.BYPASS_ACTIVE: GenvexNabtoDatapoint(obj=0, address=53, divider=1, offset=0),
-            GenvexNabtoDatapointKey.ALARM_OPTIMA270: GenvexNabtoDatapoint(obj=0, address=38, divider=1, offset=0)            
+            GenvexNabtoDatapointKey.ALARM_OPTIMA270: GenvexNabtoDatapoint(obj=0, address=38, divider=1, offset=0),
+            GenvexNabtoDatapointKey.ROTOR_SPEED: GenvexNabtoDatapoint(obj=0, address=50, divider=1, offset=0)             
         }
 
         self._setpoints = {
@@ -61,7 +62,8 @@ class GenvexNabtoOptima270(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.PREHEAT_PWM,
             GenvexNabtoDatapointKey.REHEAT_PWM,
             GenvexNabtoDatapointKey.BYPASS_ACTIVE,
-            GenvexNabtoDatapointKey.ALARM_OPTIMA270
+            GenvexNabtoDatapointKey.ALARM_OPTIMA270,
+            GenvexNabtoDatapointKey.ROTOR_SPEED
         ]
     
     def getDefaultSetpointRequest(self) -> List[GenvexNabtoSetpointKey]:
