@@ -1,8 +1,11 @@
+import logging
 from typing import Dict, List
 from collections.abc import Callable
 from .models import ( GenvexNabtoBaseModel, GenvexNabtoOptima314, GenvexNabtoOptima312, GenvexNabtoOptima301, GenvexNabtoOptima270, GenvexNabtoOptima260, GenvexNabtoOptima251, GenvexNabtoOptima250, 
                      GenvexNabtoCTS400, GenvexNabtoCTS602, GenvexNabtoCTS602Light,
                      GenvexNabtoDatapoint, GenvexNabtoDatapointKey, GenvexNabtoSetpoint, GenvexNabtoSetpointKey )
+
+_LOGGER = logging.getLogger(__name__)
 
 class GenvexNabtoModelAdapter:
     _loadedModel: GenvexNabtoBaseModel = None
@@ -122,19 +125,19 @@ class GenvexNabtoModelAdapter:
         return returnList
     
     def parseDataResponce(self, responceSeq, responcePayload):
-        print(f"Got dataresponce with sequence id: {responceSeq}")
+        _LOGGER.debug(f"Got dataresponce with sequence id: {responceSeq}")
         if responceSeq in self._currentDatapointList:
-            print(f"Is a datapoint responce")
+            _LOGGER.debug(f"Is a datapoint responce")
             return self.parseDatapointResponce(responceSeq, responcePayload)
         if responceSeq in self._currentSetpointList:
-            print(f"Is a setpoint responce")
+            _LOGGER.debug(f"Is a setpoint responce")
             return self.parseSetpointResponce(responceSeq, responcePayload)
 
     def parseDatapointResponce(self, responceSeq, responcePayload):
         if responceSeq not in self._currentDatapointList:
             return False
         decodingKeys = self._currentDatapointList[responceSeq]
-        print(decodingKeys)
+        _LOGGER.debug(decodingKeys)
         responceLength = int.from_bytes(responcePayload[0:2])
         for position in range(responceLength):
             valueKey = decodingKeys[position]
