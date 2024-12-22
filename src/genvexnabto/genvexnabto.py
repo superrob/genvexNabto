@@ -19,37 +19,33 @@ class GenvexNabtoConnectionErrorType:
     UNSUPPORTED_MODEL = "unsupported_model"
 
 class GenvexNabto():
-    _authorized_email = ""
-
-    _client_id = b'\x00\x00\x00\x00' # Our client ID can be anything.
-    _server_id = b'\x00\x00\x00\x00' # This is our ID optained from the uNabto service on device.
-
-    _device_id = None
-    _device_ip = None
-    _device_port = 5570
-    _device_model = None
-    _device_number = None
-    _slavedevice_number = None
-    _slavedevice_model = None
-
-    _model_adapter = None
-
-    _is_connected = False
-    _connection_error = False
-    _last_responce = 0
-    _last_dataupdate = 0
-    _last_setpointupdate = 0
-
-    _socket = None
-    _listen_thread = None
-    _listen_thread_open = False
-
-    _discovered_devices = {}
-
     def __init__(self, _authorized_email = "") -> None:
-        print(self._client_id, "Starting GenvexNabto")
+        print("Starting GenvexNabto")
+        self._client_id = randint(0,0xffffffff).to_bytes(4, 'big') # Our client ID can be anything.
+        self._server_id = b'\x00\x00\x00\x00' # This is our ID optained from the uNabto service on device.
+
+        self._device_id = None
+        self._device_ip = None
+        self._device_port = 5570
+        self._device_model = None
+        self._device_number = None
+        self._slavedevice_number = None
+        self._slavedevice_model = None
+
+        self._model_adapter = None
+
+        self._is_connected = False
+        self._connection_error = False
+        self._last_responce = 0
+        self._last_dataupdate = 0
+        self._last_setpointupdate = 0
+
+        self._socket = None
+        self._listen_thread = None
+        self._listen_thread_open = False
+
+        self._discovered_devices = {}
         self._authorized_email = _authorized_email
-        self._client_id = randint(0,0xffffffff).to_bytes(4, 'big')
         self.startListening()
         return    
     
