@@ -301,10 +301,11 @@ class GenvexNabto():
 
     def handleRecieve(self):
         try:
-            message, address = self._socket.recvfrom(SOCKET_MAXSIZE)
-            if (len(message) < 16): # Not a valid packet
-                return 
-            self.processReceivedMessage(message, address)
+            while self._socket.recv is not None:
+                message, address = self._socket.recvfrom(SOCKET_MAXSIZE)
+                if (len(message) < 16): # Not a valid packet
+                    return 
+                self.processReceivedMessage(message, address)
         except socket.timeout:  
             return
 
