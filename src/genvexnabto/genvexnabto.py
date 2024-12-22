@@ -21,7 +21,7 @@ class GenvexNabtoConnectionErrorType:
 class GenvexNabto():
     _authorized_email = ""
 
-    _client_id = randint(0,0xffffffff).to_bytes(4, 'big') # Our client ID can be anything.
+    _client_id = b'\x00\x00\x00\x00' # Our client ID can be anything.
     _server_id = b'\x00\x00\x00\x00' # This is our ID optained from the uNabto service on device.
 
     _device_id = None
@@ -47,7 +47,9 @@ class GenvexNabto():
     _discovered_devices = {}
 
     def __init__(self, _authorized_email = "") -> None:
+        print(self._client_id, "Starting GenvexNabto")
         self._authorized_email = _authorized_email
+        self._client_id = randint(0,0xffffffff).to_bytes(4, 'big')
         self.startListening()
         return    
     
@@ -193,7 +195,7 @@ class GenvexNabto():
         print(f"Got model: {self._device_model} with device number: {self._device_number}, slavedevice number: {self._slavedevice_number} and slavedevice model: {self._slavedevice_model}")
         if GenvexNabtoModelAdapter.providesModel(self._device_model, self._device_number, self._slavedevice_number, self._slavedevice_model):
             self._is_connected = True
-            print(f"Going to load model")
+            #print(f"Going to load model")
             self._model_adapter = GenvexNabtoModelAdapter(self._device_model, self._device_number, self._slavedevice_number, self._slavedevice_model)
             print(f"Loaded model for {self._model_adapter.getModelName()}")
             self.sendDataStateRequest(100)
@@ -224,24 +226,25 @@ class GenvexNabto():
         self._last_responce = time.time()
         packetType = message[8].to_bytes(1, 'big')
         if (packetType == GenvexPacketType.U_CONNECT):
-            print("U_CONNECT responce packet")
+            print(self._client_id, "U_CONNECT responce packet")
             if (message[20:24] == b'\x00\x00\x00\x01'):
                 self._server_id = message[24:28]
-                print('Connected, pinging to get model number')
+                print(self._client_id, 'Connected, pinging to get model number')
                 if not self._is_connected:
                     self.sendPing()
             else:
-                print("Received unsucessfull response")
+                print(self._client_id, "Received unsucessfull response")
                 self._connection_error = GenvexNabtoConnectionErrorType.AUTHENTICATION_ERROR
 
         elif (packetType == GenvexPacketType.DATA): # 0x16
-            print("Data packet", message[16])
+            print(self._client_id, "Data packet", message[16])
             # We only care about data packets with crypt payload. 
             if message[16] == 54: # x36
-                print("Packet with crypt payload!")
+                print(self._client_id, "Packet with crypt payload!")
                 length = int.from_bytes(message[18:20], 'big')
+                print(self._client_id, ''.join(r'\x'+hex(letter)[2:] for letter in message))
                 payload = message[22:20+length]
-                print(''.join(r'\x'+hex(letter)[2:] for letter in payload))
+                print(self._client_id, ''.join(r'\x'+hex(letter)[2:] for letter in payload))
                 sequenceId = int.from_bytes(message[12:14], 'big')
                 if sequenceId == 50: #50
                     self.processPingPayload(payload)
@@ -253,9 +256,9 @@ class GenvexNabto():
                     if sequenceId == 200:                        
                         self._last_setpointupdate = time.time()
             else:
-                print("Not an interresting data packet.")
+                print(self._client_id, "Not an interresting data packet.")
         else:
-            print("Unknown packet type. Ignoring")
+            print(self._client_id, "Unknown packet type. Ignoring")
 
     def sendPing(self):
         PingCmd = GenvexCommandPing()
