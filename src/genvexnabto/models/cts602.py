@@ -99,7 +99,8 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
                 4,  9, 10, 12, 19,  21,  26,
                 30, 32, 33, 35, 36,  38,  39,
                 40, 41, 43, 44, 45, 144, 244
-            ]
+            ],
+            "eatpumpData": [ 44, 144, 244 ]
         }
         
     
@@ -146,6 +147,28 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
         if self.deviceHasQuirk("coolingOffset", slaveDeviceModel):
             self._setpoints[GenvexNabtoSetpointKey.COOLING_OFFSET] = GenvexNabtoSetpoint(read_obj=0, read_address=170, write_obj=0, write_address=170, divider=1, offset=0, min=0, max=10)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.COOLING_OFFSET)
+
+        if self.deviceHasQuirk("heatpumpData", slaveDeviceModel):
+            self._datapoints[GenvexNabtoDatapointKey.HPS_OPERATION_STATE] = GenvexNabtoDatapoint(obj=0, address=198, divider=1, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_OPERATION_STATE) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_HEATPUMP_ACTIVE] = GenvexNabtoDatapoint(obj=0, address=164, divider=1, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_HEATPUMP_ACTIVE) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_HEATER_ACTIVE] = GenvexNabtoDatapoint(obj=0, address=165, divider=1, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_HEATER_ACTIVE) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_CAPACITY_ACTUAL] = GenvexNabtoDatapoint(obj=0, address=268, divider=10, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_CAPACITY_ACTUAL) 
+
+            
+            self._datapoints[GenvexNabtoDatapointKey.HPS_TEMP_AFTER_CONDENSER] = GenvexNabtoDatapoint(obj=0, address=57, divider=10, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_TEMP_AFTER_CONDENSER) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_TEMP_BEFORE_CONDENSER] = GenvexNabtoDatapoint(obj=0, address=154, divider=10, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_TEMP_BEFORE_CONDENSER) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_TEMP_BUFFERTANK] = GenvexNabtoDatapoint(obj=0, address=252, divider=10, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_TEMP_BUFFERTANK) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_TEMP_HEATPUMP_OUTDOOR] = GenvexNabtoDatapoint(obj=0, address=156, divider=10, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_TEMP_HEATPUMP_OUTDOOR) 
+            self._datapoints[GenvexNabtoDatapointKey.HPS_TEMP_PRESSURE_PIPE] = GenvexNabtoDatapoint(obj=0, address=256, divider=10, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_TEMP_PRESSURE_PIPE) 
         return
 
     def getModelName(self):

@@ -38,6 +38,18 @@ class GenvexNabtoDatapointKey:
     ALARM_CTS400WARNING = "alarn_cts400warning"
     ALARM_CTS400INFO = "alarm_cts400info"
 
+    # CTS 602 Compact P
+    HPS_CAPACITY_ACTUAL = "hps_capacity_actual"
+    HPS_OPERATION_STATE = "hps_operation_state"
+    HPS_HEATPUMP_ACTIVE = "hps_heatpump_active"
+    HPS_HEATER_ACTIVE = "hps_heater_active"
+    HPS_TEMP_AFTER_CONDENSER = "hps_temp_after_condenser" # Heatpump equiped T17
+    HPS_TEMP_BEFORE_CONDENSER = "hps_temp_before_condenser" # Heatpump equiped T16
+    HPS_TEMP_BUFFERTANK = "hps_temp_buffertank" # Heatpump equiped T18
+    HPS_TEMP_HEATPUMP_OUTDOOR = "hps_temp_heatpump_outdoor" # Heatpump equiped T20
+    HPS_TEMP_PRESSURE_PIPE = "hps_temp_pressure_pipe" # Heatpump equiped T19
+
+
 class GenvexNabtoSetpointKey:
     FAN_SPEED = "fan_speed"
     TEMP_SETPOINT = "temp_setpoint"
