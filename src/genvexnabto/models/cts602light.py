@@ -2,8 +2,8 @@ from typing import Dict, List
 from .basemodel import ( GenvexNabtoBaseModel, GenvexNabtoDatapointKey, GenvexNabtoDatapoint, GenvexNabtoSetpointKey, GenvexNabtoSetpoint )
 
 class GenvexNabtoCTS602Light(GenvexNabtoBaseModel):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, slaveDeviceModel):
+        super().__init__(slaveDeviceModel)
 
         self._datapoints = {
             GenvexNabtoDatapointKey.TEMP_SUPPLY: GenvexNabtoDatapoint(obj=0, address=37, divider=100, offset=0),

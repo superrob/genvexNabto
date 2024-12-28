@@ -103,13 +103,14 @@ class GenvexNabtoSetpoint(TypedDict):
 
 class GenvexNabtoBaseModel:    
 
-    def __init__(self):
+    def __init__(self, slaveDeviceModel):
         self._datapoints: Dict[GenvexNabtoDatapointKey, GenvexNabtoDatapoint] = {}
         self._setpoints: Dict[GenvexNabtoSetpointKey, GenvexNabtoSetpoint] = {}
         self._quirks: Dict[str, list[int]] = {}
 
         self._defaultDatapointRequest: List[GenvexNabtoDatapointKey] = []
         self._defaultSetpointRequest: List[GenvexNabtoDatapointKey] = []
+        self._slaveDeviceModel = slaveDeviceModel
         return
     
     def getModelName(self):
@@ -135,5 +136,5 @@ class GenvexNabtoBaseModel:
             return False
         return device in self._quirks[quirk]
 
-    def addDeviceQuirks(self, deviceNumber, slaveDeviceNumber, slaveDeviceModel):
+    def addDeviceQuirks(self):
         return

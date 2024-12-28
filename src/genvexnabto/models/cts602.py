@@ -2,8 +2,8 @@ from typing import Dict, List
 from .basemodel import ( GenvexNabtoBaseModel, GenvexNabtoDatapointKey, GenvexNabtoDatapoint, GenvexNabtoSetpointKey, GenvexNabtoSetpoint )
 
 class GenvexNabtoCTS602(GenvexNabtoBaseModel):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, slaveDeviceModel):
+        super().__init__(slaveDeviceModel)
 
         self._datapoints = {
             GenvexNabtoDatapointKey.TEMP_SUPPLY: GenvexNabtoDatapoint(obj=0, address=38, divider=100, offset=0),
@@ -104,51 +104,51 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
         }
         
     
-    def addDeviceQuirks(self, deviceNumber, slaveDeviceNumber, slaveDeviceModel):
+    def addDeviceQuirks(self):
         # Add quirks unique to the connected device
-        if self.deviceHasQuirk("hotwaterTempSensor", slaveDeviceModel):
+        if self.deviceHasQuirk("hotwaterTempSensor", self.slaveDeviceModel):
             self._datapoints[GenvexNabtoDatapointKey.HOTWATER_TOP] = GenvexNabtoDatapoint(obj=0, address=42, divider=100, offset=0)
             self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HOTWATER_TOP)
             self._datapoints[GenvexNabtoDatapointKey.HOTWATER_BOTTOM] = GenvexNabtoDatapoint(obj=0, address=43, divider=100, offset=0)
             self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HOTWATER_BOTTOM)   
 
-        if self.deviceHasQuirk("sacrificialAnode", slaveDeviceModel):  
+        if self.deviceHasQuirk("sacrificialAnode", self.slaveDeviceModel):  
             self._datapoints[GenvexNabtoDatapointKey.SACRIFICIAL_ANODE] = GenvexNabtoDatapoint(obj=0, address=142, divider=1, offset=0)
             self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.SACRIFICIAL_ANODE)
             
-        if self.deviceHasQuirk("reheating", slaveDeviceModel):  
+        if self.deviceHasQuirk("reheating", self.slaveDeviceModel):  
             self._setpoints[GenvexNabtoSetpointKey.REHEATING] = GenvexNabtoSetpoint(read_obj=0, read_address=281, write_obj=0, write_address=281, divider=1, offset=0, min=0, max=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.REHEATING)
 
-        if self.deviceHasQuirk("exhaustTempSensor", slaveDeviceModel):  
+        if self.deviceHasQuirk("exhaustTempSensor", self.slaveDeviceModel):  
             self._datapoints[GenvexNabtoDatapointKey.TEMP_EXHAUST] = GenvexNabtoDatapoint(obj=0, address=34, divider=100, offset=0)
             self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.TEMP_EXHAUST)
 
-        if self.deviceHasQuirk("antiLegionella", slaveDeviceModel):  
+        if self.deviceHasQuirk("antiLegionella", self.slaveDeviceModel):  
             self._setpoints[GenvexNabtoSetpointKey.ANTILEGIONELLA_DAY] = GenvexNabtoSetpoint(read_obj=0, read_address=194, write_obj=0, write_address=194, divider=1, offset=0, min=7, max=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.ANTILEGIONELLA_DAY)
 
-        if self.deviceHasQuirk("hotwaterTempSet", slaveDeviceModel):  
+        if self.deviceHasQuirk("hotwaterTempSet", self.slaveDeviceModel):  
             self._setpoints[GenvexNabtoSetpointKey.HOTWATER_TEMP] = GenvexNabtoSetpoint(read_obj=0, read_address=190, write_obj=0, write_address=190, divider=100, offset=0, min=2000, max=7000, step=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.HOTWATER_TEMP)
             self._setpoints[GenvexNabtoSetpointKey.HOTWATER_BOOSTTEMP] = GenvexNabtoSetpoint(read_obj=0, read_address=189, write_obj=0, write_address=189, divider=100, offset=0, min=2000, max=7000, step=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.HOTWATER_BOOSTTEMP)
 
-        if self.deviceHasQuirk("summerTemperatures", slaveDeviceModel):
+        if self.deviceHasQuirk("summerTemperatures", self.slaveDeviceModel):
             self._setpoints[GenvexNabtoSetpointKey.SUPPLYAIR_MIN_TEMP_SUMMER] = GenvexNabtoSetpoint(read_obj=0, read_address=171, write_obj=0, write_address=171, divider=100, offset=0, min=0, max=4000, step=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.SUPPLYAIR_MIN_TEMP_SUMMER)
             self._setpoints[GenvexNabtoSetpointKey.SUPPLYAIR_MAX_TEMP_SUMMER] = GenvexNabtoSetpoint(read_obj=0, read_address=173, write_obj=0, write_address=173, divider=100, offset=0, min=0, max=4000, step=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.SUPPLYAIR_MAX_TEMP_SUMMER)
 
-        if self.deviceHasQuirk("coolingPriority", slaveDeviceModel):
+        if self.deviceHasQuirk("coolingPriority", self.slaveDeviceModel):
             self._setpoints[GenvexNabtoSetpointKey.COOLING_PRIORITY] = GenvexNabtoSetpoint(read_obj=0, read_address=191, write_obj=0, write_address=191, divider=1, offset=0, min=0, max=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.COOLING_PRIORITY)
 
-        if self.deviceHasQuirk("coolingOffset", slaveDeviceModel):
+        if self.deviceHasQuirk("coolingOffset", self.slaveDeviceModel):
             self._setpoints[GenvexNabtoSetpointKey.COOLING_OFFSET] = GenvexNabtoSetpoint(read_obj=0, read_address=170, write_obj=0, write_address=170, divider=1, offset=0, min=0, max=10)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.COOLING_OFFSET)
 
-        if self.deviceHasQuirk("heatpumpData", slaveDeviceModel):
+        if self.deviceHasQuirk("heatpumpData", self.slaveDeviceModel):
             self._datapoints[GenvexNabtoDatapointKey.HPS_OPERATION_STATE] = GenvexNabtoDatapoint(obj=0, address=198, divider=1, offset=0)
             self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.HPS_OPERATION_STATE) 
             self._datapoints[GenvexNabtoDatapointKey.HPS_HEATPUMP_ACTIVE] = GenvexNabtoDatapoint(obj=0, address=164, divider=1, offset=0)
