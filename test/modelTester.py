@@ -7,7 +7,7 @@ logging.getLogger( "SomeTest.testSomething" ).setLevel( logging.DEBUG )
 class modelTester(unittest.TestCase):
 
     def setUp(self):
-        self.loadedModel = GenvexNabtoBaseModel()
+        self.loadedModel = GenvexNabtoBaseModel(0)
         self.expectedName = "Basemodel"
         self.expectedManufacturer = ""
 

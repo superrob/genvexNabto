@@ -4,7 +4,7 @@ from modelTester import modelTester
 
 class CTS400Test(modelTester):    
     def setUp(self):
-        self.loadedModel = GenvexNabtoCTS400()
+        self.loadedModel = GenvexNabtoCTS400(0)
         self.expectedName = "CTS 400"
         self.expectedManufacturer = "Nilan"
 
