@@ -101,15 +101,15 @@ class GenvexNabtoSetpoint(TypedDict):
     max: int
     step: float
 
-class GenvexNabtoBaseModel:
-    _datapoints: Dict[GenvexNabtoDatapointKey, GenvexNabtoDatapoint] = {}
-    _setpoints: Dict[GenvexNabtoSetpointKey, GenvexNabtoSetpoint] = {}
-    _quirks: Dict[str, list[int]] = {}
-
-    _defaultDatapointRequest: List[GenvexNabtoDatapointKey] = []
-    _defaultSetpointRequest: List[GenvexNabtoDatapointKey] = []
+class GenvexNabtoBaseModel:    
 
     def __init__(self):
+        self._datapoints: Dict[GenvexNabtoDatapointKey, GenvexNabtoDatapoint] = {}
+        self._setpoints: Dict[GenvexNabtoSetpointKey, GenvexNabtoSetpoint] = {}
+        self._quirks: Dict[str, list[int]] = {}
+
+        self._defaultDatapointRequest: List[GenvexNabtoDatapointKey] = []
+        self._defaultSetpointRequest: List[GenvexNabtoDatapointKey] = []
         return
     
     def getModelName(self):
