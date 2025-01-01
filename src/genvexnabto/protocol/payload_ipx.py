@@ -17,5 +17,5 @@ class GenvexPayloadIPX(GenvexPayload):
             b'\x00\x00', # NOT NEEDED Private Network Port
             b'\x00\x00\x00\x00', # NOT NEEDED Public IP
             b'\x00\x00', # NOT NEEDED Public Port
-            b'\xa0' # disable rendez-vous and client peer is able of communication asynchroniously
+            b'\x80' # disable rendez-vous
         ])
