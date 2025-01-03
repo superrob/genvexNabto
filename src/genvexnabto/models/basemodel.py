@@ -8,6 +8,7 @@ class GenvexNabtoDatapointKey:
     TEMP_CONDENSER = "temp_condenser"
     TEMP_EVAPORATOR = "temp_evaporator"
     TEMP_ROOM = "temp_room"
+    TEMP_HEATER = "temp_heater"
     HUMIDITY = "humidity"
     FAN_LEVEL_SUPPLY = "fan_level_supply"
     FAN_LEVEL_EXTRACT = "fan_level_extract"
