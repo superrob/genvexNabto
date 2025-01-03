@@ -15,7 +15,12 @@ class GenvexNabtoCTS602Light(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.DUTYCYCLE_SUPPLY: GenvexNabtoDatapoint(obj=0, address=98, divider=1, offset=0),
             GenvexNabtoDatapointKey.DUTYCYCLE_EXTRACT: GenvexNabtoDatapoint(obj=0, address=99, divider=1, offset=0),
             GenvexNabtoDatapointKey.BYPASS_ACTIVE: GenvexNabtoDatapoint(obj=0, address=129, divider=1, offset=0),
+            GenvexNabtoDatapointKey.CO2_LEVEL: GenvexNabtoDatapoint(obj=0, address=53, divider=1, offset=0),
             GenvexNabtoDatapointKey.FILTER_DAYS_LEFT: GenvexNabtoDatapoint(obj=0, address=101, divider=1, offset=0),
+            GenvexNabtoDatapointKey.CONTROLSTATE_602: GenvexNabtoDatapoint(obj=0, address=85, divider=1, offset=0),
+            GenvexNabtoDatapointKey.ALARM_CTS602NO1: GenvexNabtoDatapoint(obj=0, address=64, divider=1, offset=0),
+            GenvexNabtoDatapointKey.ALARM_CTS602NO2: GenvexNabtoDatapoint(obj=0, address=67, divider=1, offset=0),
+            GenvexNabtoDatapointKey.ALARM_CTS602NO3: GenvexNabtoDatapoint(obj=0, address=70, divider=1, offset=0)
         }
 
         self._setpoints = {
