@@ -39,7 +39,12 @@ class GenvexNabtoCTS602Light(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.DUTYCYCLE_SUPPLY,
             GenvexNabtoDatapointKey.DUTYCYCLE_EXTRACT,
             GenvexNabtoDatapointKey.BYPASS_ACTIVE,
-            GenvexNabtoDatapointKey.FILTER_DAYS_LEFT
+            GenvexNabtoDatapointKey.CO2_LEVEL,
+            GenvexNabtoDatapointKey.FILTER_DAYS_LEFT,
+            GenvexNabtoDatapointKey.CONTROLSTATE_602,
+            GenvexNabtoDatapointKey.ALARM_CTS602NO1,
+            GenvexNabtoDatapointKey.ALARM_CTS602NO2,
+            GenvexNabtoDatapointKey.ALARM_CTS602NO3
         ]
 
         self._defaultSetpointRequest = [
