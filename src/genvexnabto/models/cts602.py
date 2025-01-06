@@ -40,7 +40,8 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
         super().__init__(slaveDeviceModel)
 
         self._datapoints = {
-            GenvexNabtoDatapointKey.TEMP_SUPPLY: GenvexNabtoDatapoint(obj=0, address=38, divider=100, offset=0),
+            GenvexNabtoDatapointKey.TEMP_SUPPLY: GenvexNabtoDatapoint(obj=0, address=33, divider=100, offset=0),
+            GenvexNabtoDatapointKey.TEMP_SUPPLY_AFTER_HEATER: GenvexNabtoDatapoint(obj=0, address=38, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_OUTSIDE: GenvexNabtoDatapoint(obj=0, address=39, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_EXTRACT: GenvexNabtoDatapoint(obj=0, address=35, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_CONDENSER: GenvexNabtoDatapoint(obj=0, address=36, divider=100, offset=0),
@@ -68,6 +69,7 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
 
         self._defaultDatapointRequest = [
             GenvexNabtoDatapointKey.TEMP_SUPPLY,
+            GenvexNabtoDatapointKey.TEMP_SUPPLY_AFTER_HEATER,
             GenvexNabtoDatapointKey.TEMP_OUTSIDE,
             GenvexNabtoDatapointKey.TEMP_EXTRACT,
             GenvexNabtoDatapointKey.TEMP_CONDENSER,

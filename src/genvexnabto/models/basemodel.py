@@ -2,6 +2,7 @@ from typing import Dict, List, TypedDict
 
 class GenvexNabtoDatapointKey:
     TEMP_SUPPLY = "temp_supply"
+    TEMP_SUPPLY_AFTER_HEATER = "temp_supply_after_heater"
     TEMP_OUTSIDE = "temp_outside"
     TEMP_EXHAUST = "temp_exhaust"
     TEMP_EXTRACT = "temp_extract"
