@@ -42,8 +42,8 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
         self._datapoints = {
             GenvexNabtoDatapointKey.TEMP_SUPPLY: GenvexNabtoDatapoint(obj=0, address=33, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_SUPPLY_AFTER_HEATER: GenvexNabtoDatapoint(obj=0, address=38, divider=100, offset=0),
-            GenvexNabtoDatapointKey.TEMP_OUTSIDE: GenvexNabtoDatapoint(obj=0, address=39, divider=100, offset=0),
-            GenvexNabtoDatapointKey.TEMP_EXTRACT: GenvexNabtoDatapoint(obj=0, address=34, divider=100, offset=0),
+            GenvexNabtoDatapointKey.TEMP_OUTSIDE: GenvexNabtoDatapoint(obj=0, address=39, divider=100, offset=0),            
+            GenvexNabtoDatapointKey.TEMP_EXHAUST: GenvexNabtoDatapoint(obj=0, address=35, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_CONDENSER: GenvexNabtoDatapoint(obj=0, address=36, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_EVAPORATOR: GenvexNabtoDatapoint(obj=0, address=37, divider=100, offset=0),
             GenvexNabtoDatapointKey.TEMP_ROOM: GenvexNabtoDatapoint(obj=0, address=41, divider=100, offset=0),
@@ -71,7 +71,7 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.TEMP_SUPPLY,
             GenvexNabtoDatapointKey.TEMP_SUPPLY_AFTER_HEATER,
             GenvexNabtoDatapointKey.TEMP_OUTSIDE,
-            GenvexNabtoDatapointKey.TEMP_EXTRACT,
+            GenvexNabtoDatapointKey.TEMP_EXHAUST,
             GenvexNabtoDatapointKey.TEMP_CONDENSER,
             GenvexNabtoDatapointKey.TEMP_EVAPORATOR,            
             GenvexNabtoDatapointKey.TEMP_ROOM,
@@ -111,7 +111,7 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
                 34,  35,  36, 38, 39, 40, 41, 43, 44,
                 45, 144, 244
             ],
-            "exhaustTempSensor": [ 2, 13, 27, 31 ],
+            "extractTempSensor": [ 2, 13, 27, 31 ],
             "antiLegionella": [
                 3,  4,  9, 10,  11,  12, 18,
                 19, 20, 21, 23,  30,  32, 34,
@@ -158,9 +158,12 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
             self._setpoints[GenvexNabtoSetpointKey.REHEATING] = GenvexNabtoSetpoint(read_obj=0, read_address=281, write_obj=0, write_address=281, divider=1, offset=0, min=0, max=1)
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.REHEATING)
 
-        if self.deviceHasQuirk("exhaustTempSensor", self._slaveDeviceModel):  
-            self._datapoints[GenvexNabtoDatapointKey.TEMP_EXHAUST] = GenvexNabtoDatapoint(obj=0, address=35, divider=100, offset=0)
-            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.TEMP_EXHAUST)
+        if self.deviceHasQuirk("extractTempSensor", self._slaveDeviceModel):  
+            self._datapoints[GenvexNabtoDatapointKey.TEMP_EXTRACT] = GenvexNabtoDatapoint(obj=0, address=35, divider=100, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.TEMP_EXTRACT)
+        else:
+            self._datapoints[GenvexNabtoDatapointKey.TEMP_EXTRACT] = GenvexNabtoDatapoint(obj=0, address=41, divider=100, offset=0)
+            self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.TEMP_EXTRACT)
 
         if self.deviceHasQuirk("antiLegionella", self._slaveDeviceModel):  
             self._setpoints[GenvexNabtoSetpointKey.ANTILEGIONELLA_DAY] = GenvexNabtoSetpoint(read_obj=0, read_address=194, write_obj=0, write_address=194, divider=1, offset=0, min=7, max=1)
