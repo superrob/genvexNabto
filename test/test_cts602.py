@@ -1,5 +1,5 @@
 import unittest
-from common import GenvexNabtoCTS602, GenvexNabtoDatapointKey
+from common import GenvexNabtoCTS602, GenvexNabtoCTS602Light, GenvexNabtoDatapointKey
 from modelTester import modelTester
 
 class CTS602WithNoQuirksTest(modelTester):    
@@ -32,6 +32,11 @@ class CTS602WithHPSQuirksTest(modelTester):
     def test_hotwater_temp_quirk_loaded(self):
         self.assertIn(GenvexNabtoDatapointKey.HPS_HEATER_ACTIVE, self.loadedModel._datapoints)       
     
+class CTS602Light(modelTester):    
+    def setUp(self):
+        self.loadedModel = GenvexNabtoCTS602Light(0)
+        self.expectedName = "CTS 602light"
+        self.expectedManufacturer = "Nilan"
 
 if __name__ == '__main__':
     unittest.main()
