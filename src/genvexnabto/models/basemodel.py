@@ -1,35 +1,59 @@
 from typing import Dict, List, TypedDict
 
 class GenvexNabtoDatapointKey:
+    # Temperature of the air to supplied to the house
     TEMP_SUPPLY = "temp_supply"
+    # Temperature of the air passing through the heater
     TEMP_SUPPLY_AFTER_HEATER = "temp_supply_after_heater"
+    # Temperature of the air outside the house, being pulled into the system
     TEMP_OUTSIDE = "temp_outside"
+    # Temperature of the air being exhausted from the system to the outside
     TEMP_EXHAUST = "temp_exhaust"
+    # Temperature of the air being extracted from the house into the system
     TEMP_EXTRACT = "temp_extract"
+    # Temperature of the condenser in the heatpump
     TEMP_CONDENSER = "temp_condenser"
+    # Temperature of the evaporator in the heatpump
     TEMP_EVAPORATOR = "temp_evaporator"
+    # Temperature of the room sensor
     TEMP_ROOM = "temp_room"
+    # Temperature of the heater
     TEMP_HEATER = "temp_heater"
     HUMIDITY = "humidity"
+    # The current fan level from 0 to 4
     FAN_LEVEL_SUPPLY = "fan_level_supply"
     FAN_LEVEL_EXTRACT = "fan_level_extract"
+    # The current dutycycle of the supply and extract fans from 0 to 100
     DUTYCYCLE_SUPPLY = "fan_speed_supply"
     DUTYCYCLE_EXTRACT = "fan_speed_extract"
+    # The current RPM of the supply and extract fans from 0 to their max RPM
     RPM_SUPPLY = "fan_rpm_supply"
     RPM_EXTRACT = "fan_rpm_extract"
+    # The current m3/h of the supply and extract fans from 0 to their max m3/h
     M3H_SUPPLY = "fan_m3h_supply"
     M3H_EXTRACT = "fan_m3h_extract"
+    # The current PWM of the heating elements from 0 to 100
     PREHEAT_PWM = "preheat_pwm"
     REHEAT_PWM = "reheat_pwm"
+    # The current RPM of the rotor from 0 to its max RPM
     ROTOR_SPEED = "rotor_speed"
+    # Indicates if the bypass currently is active (Opened)
     BYPASS_ACTIVE = "bypass_active"
+    # The temperature of the hot water in the tank in the top
     HOTWATER_TOP = "hotwater_top"
+    # The temperature of the hot water in the tank in the bottom
     HOTWATER_BOTTOM = "hotwater_bottom"
+    # Indicates if the summer mode is active
     SUMMER_MODE = "summer_mode"
+    # Indicates if the sacrificial anode has a problem. 0 = OK, 1 = Problem
     SACRIFICIAL_ANODE = "sacrificial_anode"
+    # The current CO2 level in the house
     CO2_LEVEL = "co2_level"
+    # The current days left before planned filter change
     FILTER_DAYS_LEFT = "filter_days_left"
+    # Indicates if the defrost is currently active
     DEFROST_ACTIVE = "defrost_active"
+    # The time since the last defrost
     DEFORST_TIMESINCELAST = "defrost_timesincelast"
     CONTROLSTATE_602 = "controlstate_602"
     ALARM_OPTIMA270 = "alarm_optima270"
