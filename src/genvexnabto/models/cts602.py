@@ -75,6 +75,7 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.TEMP_CONDENSER,
             GenvexNabtoDatapointKey.TEMP_EVAPORATOR,            
             GenvexNabtoDatapointKey.TEMP_ROOM,
+            GenvexNabtoDatapointKey.TEMP_HEATER,
             GenvexNabtoDatapointKey.HUMIDITY,
             GenvexNabtoDatapointKey.FAN_LEVEL_SUPPLY,
             GenvexNabtoDatapointKey.FAN_LEVEL_EXTRACT,

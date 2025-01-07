@@ -37,6 +37,7 @@ class GenvexNabtoCTS602Light(GenvexNabtoBaseModel):
             GenvexNabtoDatapointKey.TEMP_OUTSIDE,
             GenvexNabtoDatapointKey.TEMP_EXHAUST,
             GenvexNabtoDatapointKey.TEMP_EXTRACT,
+            GenvexNabtoDatapointKey.TEMP_HEATER,
             GenvexNabtoDatapointKey.HUMIDITY,
             GenvexNabtoDatapointKey.FAN_LEVEL_SUPPLY,
             GenvexNabtoDatapointKey.FAN_LEVEL_EXTRACT,
