@@ -1,4 +1,4 @@
-from typing import Dict, List, TypedDict
+from typing import Dict, List, TypedDict, NotRequired
 
 class GenvexNabtoDatapointKey:
     # Temperature of the air to supplied to the house
@@ -111,21 +111,21 @@ class GenvexNabtoSetpointKey:
 
 
 class GenvexNabtoDatapoint(TypedDict):
-    obj: int
+    obj: NotRequired[int] # Default 0
     address: int
-    divider: int
-    offset: int
+    divider: NotRequired[int] # Default 1
+    offset: NotRequired[int] # Default 0
 
 class GenvexNabtoSetpoint(TypedDict):
-    read_obj: int
+    read_obj: NotRequired[int] # Default 0
     read_address: int
-    write_obj: int
+    write_obj: NotRequired[int] # Default 0
     write_address: int
-    divider: int
-    offset: int
+    divider: NotRequired[int] # Default 1
+    offset: NotRequired[int] # Default 0
     min: int
     max: int
-    step: float
+    step: NotRequired[float] # Default 1.0
 
 class GenvexNabtoBaseModel:    
 
@@ -164,3 +164,25 @@ class GenvexNabtoBaseModel:
 
     def addDeviceQuirks(self):
         return
+    
+    # This method is called by the subclass to add default values to the data and setpoint dictionaries
+    def finishLoading(self):
+        for key in self._datapoints:
+            if "obj" not in self._datapoints[key]:
+                self._datapoints[key]["obj"] = 0
+            if "divider" not in self._datapoints[key]:
+                self._datapoints[key]["divider"] = 1
+            if "offset" not in self._datapoints[key]:
+                self._datapoints[key]["offset"] = 0
+        for key in self._setpoints:
+            if "read_obj" not in self._setpoints[key]:
+                self._setpoints[key]["read_obj"] = 0
+            if "write_obj" not in self._setpoints[key]:
+                self._setpoints[key]["write_obj"] = 0
+            if "divider" not in self._setpoints[key]:
+                self._setpoints[key]["divider"] = 1
+            if "offset" not in self._setpoints[key]:
+                self._setpoints[key]["offset"] = 0
+            if "step" not in self._setpoints[key]:
+                self._setpoints[key]["step"] = 1.0
+        
