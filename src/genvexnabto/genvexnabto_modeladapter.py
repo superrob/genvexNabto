@@ -136,17 +136,19 @@ class GenvexNabtoModelAdapter:
         for position in range(responceLength):
             valueKey = decodingKeys[position]
             payloadSlice = responcePayload[2+position*2:4+position*2]
-            oldValue = -1
-            if valueKey in self._values:
-                oldValue = self._values[valueKey]
-            self._values[valueKey] = (int.from_bytes(payloadSlice, 'big', signed=True) + self._loadedModel._datapoints[valueKey]['offset'])
+
+            # Calculate the new value based on the payload and the datapoint configuration
+            newValue = (int.from_bytes(payloadSlice, 'big', signed=True) + self._loadedModel._datapoints[valueKey]['offset'])
             if self._loadedModel._datapoints[valueKey]['divider'] > 1:
-                self._values[valueKey] /= self._loadedModel._datapoints[valueKey]['divider']
+                newValue /= self._loadedModel._datapoints[valueKey]['divider']
             
-            if oldValue != self._values[valueKey]:
+            # Check if the value has changed, if so notify update handlers for that key
+            if valueKey in self._values and newValue != self._values[valueKey]:
                 if valueKey in self._update_handlers:
                     for method in self._update_handlers[valueKey]:
-                        method(oldValue, self._values[valueKey])
+                        method(self._values[valueKey], newValue)
+
+            self._values[valueKey] = newValue
         return
     
     def parseSetpointResponce(self, responceSeq, responcePayload):
@@ -157,15 +159,18 @@ class GenvexNabtoModelAdapter:
         for position in range(responceLength):
             valueKey = decodingKeys[position]
             payloadSlice = responcePayload[3+position*2:5+position*2]
-            oldValue = -1
-            if valueKey in self._values:
-                oldValue = self._values[valueKey]
-            self._values[valueKey] = (int.from_bytes(payloadSlice, 'big') + self._loadedModel._setpoints[valueKey]['offset'])
+
+            # Calculate the new value based on the payload and the setpoint configuration
+            newValue = (int.from_bytes(payloadSlice, 'big') + self._loadedModel._setpoints[valueKey]['offset'])
             if self._loadedModel._setpoints[valueKey]['divider'] > 1:
-                self._values[valueKey] /= self._loadedModel._setpoints[valueKey]['divider']
-            if oldValue != self._values[valueKey]:
+                newValue /= self._loadedModel._setpoints[valueKey]['divider']
+
+            # Check if the value has changed, if so notify update handlers for that key                
+            if valueKey in self._values and newValue != self._values[valueKey]:
                 if valueKey in self._update_handlers:
                     for method in self._update_handlers[valueKey]:
-                        method(oldValue, self._values[valueKey])
+                        method(self._values[valueKey], newValue)
+            
+            self._values[valueKey] = newValue
         return
 
