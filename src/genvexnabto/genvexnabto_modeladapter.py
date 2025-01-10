@@ -88,9 +88,7 @@ class GenvexNabtoModelAdapter:
     
     def getSetpointStep(self, key: GenvexNabtoSetpointKey):
         if self._loadedModel.modelProvidesSetpoint(key):
-            if "step" in self._loadedModel._setpoints[key]:             
-                return self._loadedModel._setpoints[key]['step']
-        return 1
+            return self._loadedModel._setpoints[key]['step']
     
     def registerUpdateHandler(self, key: GenvexNabtoSetpointKey|GenvexNabtoDatapointKey, updateMethod: Callable[[int, int], None]):
         if key not in self._update_handlers:
