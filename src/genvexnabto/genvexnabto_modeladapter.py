@@ -15,6 +15,7 @@ class GenvexNabtoModelAdapter:
             raise "Invalid model"
         self._loadedModel: GenvexNabtoBaseModel = modelToLoad(slaveDeviceModel)
         self._loadedModel.addDeviceQuirks()
+        self._loadedModel.finishLoading() # Ensure that all default values are applied if not set in the subclass
             
         self._currentDatapointList: Dict[int, List[GenvexNabtoSetpointKey]] = {100: self._loadedModel.getDefaultDatapointRequest()}
         self._currentSetpointList: Dict[int, List[GenvexNabtoSetpointKey]] = {200: self._loadedModel.getDefaultSetpointRequest()}
