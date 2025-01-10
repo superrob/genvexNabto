@@ -100,8 +100,8 @@ class GenvexNabtoModelAdapter:
     def notifyAllUpdateHandlers(self):
         for key in self._update_handlers:
             for method in self._update_handlers[key]:
-                method(-1, self._values[key])
-
+                if (self.hasValue(key)):
+                    method(-1, self._values[key])
     
     def getDatapointRequestList(self, sequenceId):
         if sequenceId not in self._currentDatapointList:
