@@ -7,6 +7,7 @@ class CTS400Test(modelTester):
         self.loadedModel = GenvexNabtoCTS400(0)
         self.expectedName = "CTS 400"
         self.expectedManufacturer = "Nilan"
+        self.loadedModel.finishLoading()
 
 if __name__ == '__main__':
     unittest.main()

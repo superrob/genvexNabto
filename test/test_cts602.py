@@ -8,6 +8,7 @@ class CTS602WithNoQuirksTest(modelTester):
         self.loadedModel.addDeviceQuirks() # Should not load any quirks.
         self.expectedName = "CTS 602 - Ukendt type"
         self.expectedManufacturer = "Nilan"
+        self.loadedModel.finishLoading()
 
     def test_quirks_not_loaded(self):
         self.assertNotIn(GenvexNabtoDatapointKey.HOTWATER_TOP, self.loadedModel._datapoints)
@@ -18,6 +19,7 @@ class CTS602WithQuirksTest(modelTester):
         self.loadedModel.addDeviceQuirks()
         self.expectedName = "CTS 602 - VP18cCompact"
         self.expectedManufacturer = "Nilan"
+        self.loadedModel.finishLoading()
 
     def test_hotwater_temp_quirk_loaded(self):
         self.assertIn(GenvexNabtoDatapointKey.HOTWATER_TOP, self.loadedModel._datapoints)
@@ -28,6 +30,7 @@ class CTS602WithHPSQuirksTest(modelTester):
         self.loadedModel.addDeviceQuirks()
         self.expectedName = "CTS 602 - Compact P AIR"
         self.expectedManufacturer = "Nilan"
+        self.loadedModel.finishLoading()
 
     def test_hotwater_temp_quirk_loaded(self):
         self.assertIn(GenvexNabtoDatapointKey.HPS_HEATER_ACTIVE, self.loadedModel._datapoints)       
@@ -37,6 +40,7 @@ class CTS602Light(modelTester):
         self.loadedModel = GenvexNabtoCTS602Light(0)
         self.expectedName = "CTS 602light"
         self.expectedManufacturer = "Nilan"
+        self.loadedModel.finishLoading()
 
 if __name__ == '__main__':
     unittest.main()
