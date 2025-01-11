@@ -158,7 +158,7 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
             self._defaultSetpointRequest.append(GenvexNabtoSetpointKey.REHEATING)
 
         if self.deviceHasQuirk("extractTempSensor", self._slaveDeviceModel):  
-            self._datapoints[GenvexNabtoDatapointKey.TEMP_EXTRACT] = GenvexNabtoDatapoint(address=35, divider=100)
+            self._datapoints[GenvexNabtoDatapointKey.TEMP_EXTRACT] = GenvexNabtoDatapoint(address=34, divider=100)
             self._defaultDatapointRequest.append(GenvexNabtoDatapointKey.TEMP_EXTRACT)
         else:
             self._datapoints[GenvexNabtoDatapointKey.TEMP_EXTRACT] = GenvexNabtoDatapoint(address=41, divider=100)
