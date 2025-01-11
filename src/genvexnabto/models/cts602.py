@@ -3,8 +3,7 @@ from .basemodel import ( GenvexNabtoBaseModel, GenvexNabtoDatapointKey, GenvexNa
 
 class GenvexNabtoCTS602(GenvexNabtoBaseModel):
 
-    _modelNames = {0: "Ukendt type",
-        2: "Comfort_LIGHT",        
+    _modelNames = {2: "Comfort_LIGHT",        
         3: "VPL15",
         4: "VPL15c",
         9: "CompacSU",
@@ -215,7 +214,7 @@ class GenvexNabtoCTS602(GenvexNabtoBaseModel):
     def getModelName(self):
         if int(self._slaveDeviceModel) in self._modelNames:
             return f'CTS 602 - {self._modelNames[int(self._slaveDeviceModel)]}'
-        return "CTS 602"
+        return "CTS 602 - Unknown model"
     
     def getManufacturer(self):
         return "Nilan"

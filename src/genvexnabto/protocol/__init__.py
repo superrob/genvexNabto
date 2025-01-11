@@ -18,7 +18,7 @@ __all__ = [
     "GenvexPayloadType",
     "GenvexPayloadIPX",
     "GenvexPayloadCP_ID",
-    "GenvexPayloadCrypt"
+    "GenvexPayloadCrypt",
     "GenvexDiscovery",
     "GenvexCommandDatapointReadList",
     "GenvexCommandSetpointReadList",
