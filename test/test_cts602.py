@@ -6,12 +6,29 @@ class CTS602WithNoQuirksTest(modelTester):
     def setUp(self):
         self.loadedModel = GenvexNabtoCTS602(0)
         self.loadedModel.addDeviceQuirks() # Should not load any quirks.
-        self.expectedName = "CTS 602 - Ukendt type"
+        self.expectedName = "CTS 602 - Unknown model"
         self.expectedManufacturer = "Nilan"
         self.loadedModel.finishLoading()
+        
+    def test_if_device_has_quirk(self):
+        self.assertFalse(self.loadedModel.deviceHasQuirk("heatpumpData", 0))
+
+    def test_has_quirk_with_invalid_quirk(self):
+        self.assertFalse(self.loadedModel.deviceHasQuirk("thisIsInvalid", 0))
 
     def test_quirks_not_loaded(self):
         self.assertNotIn(GenvexNabtoDatapointKey.HOTWATER_TOP, self.loadedModel._datapoints)
+
+class CTS602WithExtractTempSensor(modelTester):    
+    def setUp(self):
+        self.loadedModel = GenvexNabtoCTS602(13)
+        self.loadedModel.addDeviceQuirks()
+        self.expectedName = "CTS 602 - Comfort"
+        self.expectedManufacturer = "Nilan"
+        self.loadedModel.finishLoading()
+
+    def test_extract_sensor_used(self):
+        self.assertEqual(self.loadedModel._datapoints[GenvexNabtoDatapointKey.TEMP_EXTRACT]['address'], 35)
 
 class CTS602WithQuirksTest(modelTester):    
     def setUp(self):
@@ -22,7 +39,7 @@ class CTS602WithQuirksTest(modelTester):
         self.loadedModel.finishLoading()
 
     def test_hotwater_temp_quirk_loaded(self):
-        self.assertIn(GenvexNabtoDatapointKey.HOTWATER_TOP, self.loadedModel._datapoints)
+        self.assertTrue(self.loadedModel.modelProvidesDatapoint(GenvexNabtoDatapointKey.HOTWATER_TOP))
 
 class CTS602WithHPSQuirksTest(modelTester):    
     def setUp(self):
@@ -32,8 +49,11 @@ class CTS602WithHPSQuirksTest(modelTester):
         self.expectedManufacturer = "Nilan"
         self.loadedModel.finishLoading()
 
-    def test_hotwater_temp_quirk_loaded(self):
-        self.assertIn(GenvexNabtoDatapointKey.HPS_HEATER_ACTIVE, self.loadedModel._datapoints)       
+    def test_if_device_has_quirk(self):
+        self.assertTrue(self.loadedModel.deviceHasQuirk("heatpumpData", 144))
+
+    def test_hotwater_temp_quirk_loaded(self):        
+        self.assertTrue(self.loadedModel.modelProvidesDatapoint(GenvexNabtoDatapointKey.HPS_HEATER_ACTIVE))   
     
 class CTS602Light(modelTester):    
     def setUp(self):
