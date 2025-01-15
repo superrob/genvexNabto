@@ -167,22 +167,22 @@ class GenvexNabtoBaseModel:
     
     # This method is called by the subclass to add default values to the data and setpoint dictionaries
     def finishLoading(self):
-        for key in self._datapoints:
-            if "obj" not in self._datapoints[key]:
-                self._datapoints[key]["obj"] = 0
-            if "divider" not in self._datapoints[key]:
-                self._datapoints[key]["divider"] = 1
-            if "offset" not in self._datapoints[key]:
-                self._datapoints[key]["offset"] = 0
-        for key in self._setpoints:
-            if "read_obj" not in self._setpoints[key]:
-                self._setpoints[key]["read_obj"] = 0
-            if "write_obj" not in self._setpoints[key]:
-                self._setpoints[key]["write_obj"] = 0
-            if "divider" not in self._setpoints[key]:
-                self._setpoints[key]["divider"] = 1
-            if "offset" not in self._setpoints[key]:
-                self._setpoints[key]["offset"] = 0
-            if "step" not in self._setpoints[key]:
-                self._setpoints[key]["step"] = 1.0
+        for datapoint in self._datapoints.values():
+            if "obj" not in datapoint:
+                datapoint["obj"] = 0
+            if "divider" not in datapoint:
+                datapoint["divider"] = 1
+            if "offset" not in datapoint:
+                datapoint["offset"] = 0
+        for setpoint in self._setpoints.values():
+            if "read_obj" not in setpoint:
+                setpoint["read_obj"] = 0
+            if "write_obj" not in setpoint:
+                setpoint["write_obj"] = 0
+            if "divider" not in setpoint:
+                setpoint["divider"] = 1
+            if "offset" not in setpoint:
+                setpoint["offset"] = 0
+            if "step" not in setpoint:
+                setpoint["step"] = 1.0
         
